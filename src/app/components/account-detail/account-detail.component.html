@@ -1,0 +1,120 @@
+<div class="container mt-4">
+  <h2>Account Details</h2>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+  <!-- Account Details -->
+  <div *ngIf="!loading && account">
+    <h4>Account Number: {{ account.accountNr }}</h4>
+    <h4>Balance: {{ account.balance | currency }}</h4>
+
+    <hr />
+
+    <!-- Deposit Section -->
+    <div>
+      <h5>Deposit</h5>
+      <input
+        type="number"
+        [(ngModel)]="depositAmount"
+        min="0"
+        placeholder="Enter deposit amount"
+      />
+      <span *ngIf="depositAmount < 0" class="text-danger">
+        Amount cannot be negative!
+      </span>
+      <button (click)="deposit()" [disabled]="depositAmount < 0">Deposit</button>
+    </div>
+
+    <hr />
+
+    <!-- Withdraw Section -->
+    <div>
+      <h5>Withdraw</h5>
+      <input
+        type="number"
+        [(ngModel)]="withdrawAmount"
+        min="1"
+        placeholder="Enter withdraw amount"
+      />
+      <span *ngIf="withdrawAmount > account.balance" class="text-danger">
+        Insufficient balance!
+      </span>
+      <button
+        (click)="withdraw()"
+        [disabled]="withdrawAmount > account.balance || withdrawAmount <= 0"
+      >
+        Withdraw
+      </button>
+    </div>
+
+    <hr />
+
+    <!-- Transfer Section -->
+    <div>
+      <h5>Transfer</h5>
+      <select [(ngModel)]="selectedAccount" required>
+        <option value="" disabled selected>Select an account</option>
+        <option *ngFor="let account of otherAccounts" [value]="account.accountNr">
+          {{ account.accountNr }}
+        </option>
+      </select>
+      <input
+        type="number"
+        [(ngModel)]="transferAmount"
+        min="1"
+        placeholder="Enter transfer amount"
+      />
+      <span *ngIf="transferAmount > account.balance" class="text-danger">
+        Transfer amount exceeds balance!
+      </span>
+      <span *ngIf="transferAmount <= 0 && transferAmount !== 0" class="text-danger">
+        Transfer amount must be positive!
+      </span>
+      <button
+        (click)="transfer()"
+        [disabled]="
+          transferAmount > account.balance || transferAmount <= 0 || !selectedAccount
+        "
+      >
+        Transfer
+      </button>
+    </div>
+
+    <hr />
+
+    <!-- Transaction History Section -->
+    <h4>Transaction History</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Transaction Type</th>
+          <th>Old Balance</th>
+          <th>New Balance</th>
+          <th>Transaction Amount</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ transaction.transactionType }}</td>
+          <td>{{ transaction.oldBalance | currency }}</td>
+          <td>{{ transaction.newBalance | currency }}</td>
+          <td>{{ transaction.transactionAmount | currency }}</td>
+          <td>{{ transaction.timeStamp | date : "medium" }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="transactions.length === 0" class="alert alert-warning">
+      No transactions found.
+    </div>
+  </div>
+
+  <!-- Go Back Button -->
+  <button (click)="goBack()" class="btn btn-secondary mt-3">Go Back</button>
+</div>
