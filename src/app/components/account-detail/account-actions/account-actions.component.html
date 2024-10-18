@@ -112,11 +112,12 @@
         <p>Are you sure you want to perform this transaction?</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">
-          Cancel
-        </button>
         <button type="button" class="btn btn-primary" (click)="transfer(); closeModal()">
           Confirm Transfer
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancel
         </button>
       </div>
     </div>

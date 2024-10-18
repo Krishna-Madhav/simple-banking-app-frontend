@@ -83,10 +83,18 @@ export class AccountActionsComponent {
   }
 
   openTransferModal() {
-    // Open modal to confirm transfer
-    if (this.transferDto.transferAmount <= 0 || !this.transferDto.targetAccountNumber) {
+    // Check if the transfer amount and target account are valid
+    if (this.transferDto.transferAmount <= 0 && !this.transferDto.targetAccountNumber) {
       this.notificationMessage =
         'Please select a target account and enter a valid transfer amount.';
+      this.notificationVisible = true; // Show notification modal
+      return;
+    } else if (this.transferDto.transferAmount <= 0) {
+      this.notificationMessage = 'Transfer amount should be a positive value.';
+      this.notificationVisible = true; // Show notification modal
+      return;
+    } else if (!this.transferDto.targetAccountNumber) {
+      this.notificationMessage = 'Please select a target account.';
       this.notificationVisible = true; // Show notification modal
       return;
     } else if (this.transferDto.transferAmount > this.account.balance) {
@@ -95,6 +103,7 @@ export class AccountActionsComponent {
       this.notificationVisible = true; // Show notification modal
       return;
     }
+
     this.showModal = true; // Show transfer confirmation modal
   }
 
