@@ -1,0 +1,19 @@
+<div class="card h-100" style="min-height: 200px">
+  <div class="card-body d-flex flex-column align-items-center p-3">
+    <h5 class="card-title">Account {{ account.accountNr }}</h5>
+    <p class="card-text">Balance: {{ account.balance | currency }}</p>
+
+    <!-- Buttons Section -->
+    <div class="mt-auto text-center w-100">
+      <button class="btn btn-primary w-100 mb-2" (click)="viewAccountDetails()">
+        View
+      </button>
+      <button
+        class="btn btn-danger w-100"
+        (click)="confirmDelete(); $event.stopPropagation()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

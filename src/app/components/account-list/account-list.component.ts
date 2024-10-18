@@ -4,11 +4,13 @@ import { AccountService } from '../../services/account.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AccountCardComponent } from './account-card/account-card.component';
+import { AccountFormComponent } from './account-form/account-form.component';
 
 @Component({
   selector: 'app-account-list',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, AccountCardComponent, AccountFormComponent],
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.css'],
 })
@@ -33,17 +35,11 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  // Method to create a new account
-  createAccount() {
-    if (this.newAccount.accountNr) {
-      this.accountService.createAccount(this.newAccount).subscribe(() => {
+  createAccount(account: Account) {
+    if (account.accountNr) {
+      this.accountService.createAccount(account).subscribe(() => {
         alert('Account created successfully!');
         this.showCreateAccountForm = false;
-        this.newAccount = {
-          accountNr: '',
-          balance: 0,
-          transactions: [],
-        }; // Reset the newAccount form
         this.loadAccounts(); // Reload the account list after creation
       });
     } else {
@@ -51,7 +47,6 @@ export class AccountListComponent implements OnInit {
     }
   }
 
-  // Method to confirm deletion of an account
   confirmDelete(account: Account) {
     const confirmed = window.confirm(
       `Are you sure you want to delete the account with number ${account.accountNr}?`
@@ -61,11 +56,15 @@ export class AccountListComponent implements OnInit {
     }
   }
 
-  // Method to delete an account
   deleteAccount(account: Account) {
     this.accountService.deleteAccount(account.accountNr).subscribe(() => {
       alert('Account deleted successfully!');
       this.loadAccounts(); // Reload the account list after deletion
     });
+  }
+
+  // New method to navigate to the account detail view
+  viewAccountDetails(account: Account) {
+    this.router.navigate(['/account-detail', account.accountNr]);
   }
 }

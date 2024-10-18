@@ -1,0 +1,17 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">Account Details</h2>
+    <p class="card-text">
+      <strong>Account Number:</strong>
+      <span class="account-number-highlight">
+        {{ account.accountNr }}
+      </span>
+    </p>
+    <p class="card-text">
+      <strong>Account Balance:</strong>
+      <span class="balance-success">
+        {{ account.balance | currency }}
+      </span>
+    </p>
+  </div>
+</div>

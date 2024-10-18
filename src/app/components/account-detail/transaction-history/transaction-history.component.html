@@ -1,0 +1,44 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h3 class="card-title">Transaction History</h3>
+    <div style="max-height: 500px; overflow-y: auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Transaction Type</th>
+            <th>Old Balance</th>
+            <th>New Balance</th>
+            <th>Transaction Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Looping through transactions using @for -->
+          @for (transaction of safeTransactions; track $index) {
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ transaction.transactionType }}</td>
+            <td>{{ transaction.oldBalance | currency }}</td>
+            <td>{{ transaction.newBalance | currency }}</td>
+            <td
+              [ngClass]="{
+                'text-success':
+                  transaction.transactionType === 'DEPOSIT' ||
+                  transaction.transactionType === 'ACCOUNT_CREATION',
+                'text-danger':
+                  transaction.transactionType === 'WITHDRAWAL' ||
+                  transaction.transactionType === 'TRANSFER'
+              }"
+            >
+              {{ transaction.transactionAmount | currency }}
+            </td>
+
+            <td>{{ transaction.timeStamp }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

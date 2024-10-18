@@ -1,0 +1,34 @@
+<div class="card p-3 mb-5">
+  <h4>Create New Account</h4>
+  <form (ngSubmit)="createAccount()">
+    <div class="form-group mb-3">
+      <label for="accountNumber">Account Number:</label>
+      <input
+        type="text"
+        id="accountNumber"
+        class="form-control"
+        [(ngModel)]="newAccount.accountNr"
+        name="accountNumber"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="initialBalance">Initial Balance:</label>
+      <input
+        type="number"
+        id="initialBalance"
+        class="form-control"
+        [(ngModel)]="newAccount.balance"
+        name="initialBalance"
+        min="0"
+        required
+      />
+    </div>
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success w-100">Create Account</button>
+      <button type="button" class="btn btn-secondary w-100 ms-2" (click)="resetForm()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

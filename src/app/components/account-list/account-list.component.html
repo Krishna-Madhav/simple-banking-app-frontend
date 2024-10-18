@@ -1,67 +1,27 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <h2>Account List</h2>
 
   <!-- Create New Account Button -->
-  <button class="btn btn-primary mb-3" (click)="showCreateAccountForm = true">
-    Create New Account
-  </button>
-
-  <!-- Display the account creation form when the button is clicked -->
-  <div *ngIf="showCreateAccountForm" class="card p-3 mb-4">
-    <h4>Create New Account</h4>
-    <form (ngSubmit)="createAccount()">
-      <div class="form-group mb-3">
-        <label for="accountNumber">Account Number:</label>
-        <input
-          type="text"
-          id="accountNumber"
-          class="form-control"
-          [(ngModel)]="newAccount.accountNr"
-          name="accountNumber"
-          required
-        />
-      </div>
-      <div class="form-group mb-3">
-        <label for="initialBalance">Initial Balance:</label>
-        <input
-          type="number"
-          id="initialBalance"
-          class="form-control"
-          [(ngModel)]="newAccount.balance"
-          name="initialBalance"
-          min="0"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-success">Create Account</button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="showCreateAccountForm = false"
-      >
-        Cancel
-      </button>
-    </form>
+  <div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-primary" (click)="showCreateAccountForm = true">
+      Create New Account
+    </button>
   </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Account Number</th>
-        <th>Balance</th>
-        <th>Actions</th>
-        <!-- Added column for actions -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let account of accounts">
-        <td>{{ account.accountNr }}</td>
-        <td>{{ account.balance | currency }}</td>
-        <td>
-          <!-- Delete button -->
-          <button class="btn btn-danger" (click)="confirmDelete(account)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Display the account creation form when the button is clicked -->
+  <app-account-form
+    *ngIf="showCreateAccountForm"
+    (accountCreated)="createAccount($event)"
+  ></app-account-form>
+
+  <!-- Account Cards -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let account of accounts">
+      <app-account-card
+        [account]="account"
+        [onView]="viewAccountDetails.bind(this)"
+        [onDelete]="confirmDelete.bind(this)"
+      ></app-account-card>
+    </div>
+  </div>
 </div>

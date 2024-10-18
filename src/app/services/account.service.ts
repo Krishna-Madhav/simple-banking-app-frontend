@@ -29,22 +29,46 @@ export class AccountService {
   }
 
   // Deposit money
-  deposit(accountNumber: string, amount: number): Observable<string> {
-    return this.http.post<string>(`${this.apiURL}/${accountNumber}/deposit`, null, {
-      params: { amount },
-    });
+  deposit(
+    accountNumber: string,
+    amount: number
+  ): Observable<{ message: string; newBalance: number }> {
+    return this.http.post<{ message: string; newBalance: number }>(
+      `${this.apiURL}/${accountNumber}/deposit`,
+      null,
+      {
+        params: { amount },
+      }
+    );
   }
 
   // Withdraw money
-  withdraw(accountNumber: string, amount: number): Observable<string> {
-    return this.http.post<string>(`${this.apiURL}/${accountNumber}/withdraw`, null, {
-      params: { amount },
-    });
+  withdraw(
+    accountNumber: string,
+    amount: number
+  ): Observable<{ message: string; newBalance: number }> {
+    return this.http.post<{ message: string; newBalance: number }>(
+      `${this.apiURL}/${accountNumber}/withdraw`,
+      null,
+      {
+        params: { amount },
+      }
+    );
   }
 
   // Transfer money
-  transfer(transferDTO: TransferDto): Observable<string> {
-    return this.http.post<string>(`${this.apiURL}/transfer`, transferDTO);
+  transfer(transferDto: TransferDto): Observable<{
+    message: string;
+    sourceAccount: string;
+    targetAccount: string;
+    transferAmount: number;
+  }> {
+    return this.http.post<{
+      message: string;
+      sourceAccount: string;
+      targetAccount: string;
+      transferAmount: number;
+    }>(`${this.apiURL}/transfer`, transferDto);
   }
 
   // Fetch transactions for a specific account
@@ -54,7 +78,6 @@ export class AccountService {
 
   // Delete account by account number
   deleteAccount(accountNumber: string): Observable<void> {
-    // Changed from Account to string
     return this.http.delete<void>(`${this.apiURL}/${accountNumber}`);
   }
 }
