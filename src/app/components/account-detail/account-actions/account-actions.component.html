@@ -97,9 +97,7 @@
 >
   <div class="modal-dialog custom-modal-width">
     <div class="modal-content text-center">
-      <!-- Add text-center class -->
       <div class="modal-header justify-content-center">
-        <!-- Center the header -->
         <h5 class="modal-title" id="transferModalLabel">Confirm Transfer</h5>
         <button
           type="button"
@@ -111,14 +109,9 @@
       <div
         class="modal-body d-flex flex-column align-items-center justify-content-center"
       >
-        <!-- Center the message -->
-        <p>
-          Are you sure you want to transfer {{ transferDto.transferAmount }} from
-          {{ account.accountNr }} to {{ transferDto.targetAccountNumber }}?
-        </p>
+        <p>Are you sure you want to perform this transaction?</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <!-- Center the footer buttons -->
         <button type="button" class="btn btn-secondary" (click)="closeModal()">
           Cancel
         </button>
