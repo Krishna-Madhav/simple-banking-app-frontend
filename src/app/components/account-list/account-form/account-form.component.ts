@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AccountFormComponent {
   @Output() accountCreated = new EventEmitter<Account>();
+  @Output() formCancelled = new EventEmitter<void>();
   newAccount: Account = {
     accountNr: '',
     balance: 0,
@@ -32,6 +33,11 @@ export class AccountFormComponent {
       accountNr: '',
       balance: 0,
       transactions: [],
-    }; // Reset the form
+    };
+  }
+
+  cancel() {
+    this.resetForm();
+    this.formCancelled.emit(); // Emit cancel event
   }
 }

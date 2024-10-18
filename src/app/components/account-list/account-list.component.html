@@ -9,10 +9,13 @@
   </div>
 
   <!-- Display the account creation form when the button is clicked -->
-  <app-account-form
-    *ngIf="showCreateAccountForm"
-    (accountCreated)="createAccount($event)"
-  ></app-account-form>
+  <div class="mb-4" *ngIf="showCreateAccountForm">
+    <app-account-form
+      (accountCreated)="onAccountCreated($event)"
+      (formCancelled)="onFormCancelled()"
+    >
+    </app-account-form>
+  </div>
 
   <!-- Account Cards -->
   <div class="row">

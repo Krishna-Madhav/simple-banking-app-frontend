@@ -8,12 +8,7 @@
       <button class="btn btn-primary w-100 mb-2" (click)="viewAccountDetails()">
         View
       </button>
-      <button
-        class="btn btn-danger w-100"
-        (click)="confirmDelete(); $event.stopPropagation()"
-      >
-        Delete
-      </button>
+      <button class="btn btn-danger w-100" (click)="onDelete(account)">Delete</button>
     </div>
   </div>
 </div>

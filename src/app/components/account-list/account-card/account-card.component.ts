@@ -17,13 +17,4 @@ export class AccountCardComponent {
   viewAccountDetails() {
     this.onView(this.account);
   }
-
-  confirmDelete() {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete the account with number ${this.account.accountNr}?`
-    );
-    if (confirmed) {
-      this.onDelete(this.account);
-    }
-  }
 }

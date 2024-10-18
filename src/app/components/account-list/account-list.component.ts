@@ -16,12 +16,7 @@ import { AccountFormComponent } from './account-form/account-form.component';
 })
 export class AccountListComponent implements OnInit {
   accounts: Account[] = [];
-  showCreateAccountForm: boolean = false;
-  newAccount: Account = {
-    accountNr: '',
-    balance: 0,
-    transactions: [], // Initialize transactions as empty
-  };
+  showCreateAccountForm: boolean = false; // Control visibility of the form
 
   constructor(private accountService: AccountService, private router: Router) {}
 
@@ -35,21 +30,17 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  createAccount(account: Account) {
-    if (account.accountNr) {
-      this.accountService.createAccount(account).subscribe(() => {
-        alert('Account created successfully!');
-        this.showCreateAccountForm = false;
-        this.loadAccounts(); // Reload the account list after creation
-      });
-    } else {
-      alert('Please fill in all required fields.');
-    }
+  onAccountCreated(account: Account) {
+    this.accountService.createAccount(account).subscribe(() => {
+      alert('Account created successfully!');
+      this.loadAccounts(); // Reload the account list after creation
+      this.showCreateAccountForm = false; // Hide form after creation
+    });
   }
 
   confirmDelete(account: Account) {
     const confirmed = window.confirm(
-      `Are you sure you want to delete the account with number ${account.accountNr}?`
+      `Are you sure you want to delete the account: ${account.accountNr}?`
     );
     if (confirmed) {
       this.deleteAccount(account);
@@ -63,8 +54,11 @@ export class AccountListComponent implements OnInit {
     });
   }
 
-  // New method to navigate to the account detail view
   viewAccountDetails(account: Account) {
     this.router.navigate(['/account-detail', account.accountNr]);
+  }
+
+  onFormCancelled() {
+    this.showCreateAccountForm = false; // Hide the create account form
   }
 }
