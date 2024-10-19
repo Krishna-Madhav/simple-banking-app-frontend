@@ -24,7 +24,7 @@ export class AccountFormComponent {
       this.accountCreated.emit(this.newAccount);
       this.resetForm();
     } else {
-      alert('Please fill in all required fields.');
+      alert("Please fill in required field: 'Account Number'");
     }
   }
 

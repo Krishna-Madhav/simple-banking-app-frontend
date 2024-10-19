@@ -32,7 +32,7 @@ export class AccountListComponent implements OnInit {
 
   onAccountCreated(account: Account) {
     this.accountService.createAccount(account).subscribe(() => {
-      alert('Account created successfully!');
+      alert(`Account ${account.accountNr} created successfully!`);
       this.loadAccounts(); // Reload the account list after creation
       this.showCreateAccountForm = false; // Hide form after creation
     });
@@ -49,7 +49,7 @@ export class AccountListComponent implements OnInit {
 
   deleteAccount(account: Account) {
     this.accountService.deleteAccount(account.accountNr).subscribe(() => {
-      alert('Account deleted successfully!');
+      alert(`Account ${account.accountNr} deleted successfully!`);
       this.loadAccounts(); // Reload the account list after deletion
     });
   }
