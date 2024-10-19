@@ -5,6 +5,7 @@ import { Account } from '../../../models/account.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationModalComponent } from '../../reusable/notification-modal/notification-modal.component';
+import { AppConstants } from '../../../constants/app.constants';
 
 @Component({
   selector: 'app-account-actions',
@@ -37,46 +38,42 @@ export class AccountActionsComponent {
       this.accountService.deposit(this.account.accountNr, this.depositAmount).subscribe(
         (response) => {
           this.notificationMessage = response.message;
-          this.notificationVisible = true; // Show notification modal
+          this.notificationVisible = true;
           this.account.balance += this.depositAmount;
           this.depositAmount = 0;
-          this.accountUpdated.emit(); // Emit event to refresh account details
+          this.accountUpdated.emit();
         },
         (error) => {
-          this.notificationMessage = 'An error occurred while depositing.';
-          this.notificationVisible = true; // Show notification modal
+          this.notificationMessage = AppConstants.MESSAGES.GENERAL_DEPOSIT_ERROR;
+          this.notificationVisible = true;
           console.error(error);
         }
       );
     } else {
-      this.notificationMessage =
-        'Transaction cancelled! The deposit amount should be a positive value.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.INVALID_DEPOSIT_AMOUNT;
+      this.notificationVisible = true;
     }
   }
 
   withdraw() {
     if (this.withdrawAmount <= 0) {
-      this.notificationMessage =
-        'Transaction cancelled! Withdrawal amount should be positive value.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
+      this.notificationVisible = true;
     } else if (this.withdrawAmount > this.account.balance) {
-      this.notificationMessage =
-        'Transaction cancelled! Your withdrawal amount exceeds the current balance.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.EXCEEDS_BALANCE_WITHDRAWAL;
+      this.notificationVisible = true;
     } else {
       this.accountService.withdraw(this.account.accountNr, this.withdrawAmount).subscribe(
         (response) => {
           this.notificationMessage = response.message;
-          this.notificationVisible = true; // Show notification modal
+          this.notificationVisible = true;
           this.account.balance -= this.withdrawAmount;
           this.withdrawAmount = 0;
           this.accountUpdated.emit(); // Emit event to refresh account details
         },
         (error) => {
-          this.notificationMessage =
-            'Transaction cancelled! Withdrawal amount should be positive value.';
-          this.notificationVisible = true; // Show notification modal
+          this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
+          this.notificationVisible = true;
           console.error(error);
         }
       );
@@ -86,22 +83,20 @@ export class AccountActionsComponent {
   openTransferModal() {
     // Check if the transfer amount and target account are valid
     if (this.transferDto.transferAmount <= 0 && !this.transferDto.targetAccountNumber) {
-      this.notificationMessage =
-        'Please select a target account and enter a valid transfer amount.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.MISSING_ACCOUNT_AND_AMOUNT;
+      this.notificationVisible = true;
       return;
     } else if (this.transferDto.transferAmount <= 0) {
-      this.notificationMessage = 'Transfer amount should be a positive value.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.INVALID_TRANSFER_AMOUNT;
+      this.notificationVisible = true;
       return;
     } else if (!this.transferDto.targetAccountNumber) {
-      this.notificationMessage = 'Please select a target account.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.MISSING_TARGET_ACCOUNT;
+      this.notificationVisible = true;
       return;
     } else if (this.transferDto.transferAmount > this.account.balance) {
-      this.notificationMessage =
-        'Transaction cancelled! Your transfer amount exceeds the current balance.';
-      this.notificationVisible = true; // Show notification modal
+      this.notificationMessage = AppConstants.MESSAGES.EXCEEDS_BALANCE_TRANSFER;
+      this.notificationVisible = true;
       return;
     }
 
@@ -115,7 +110,7 @@ export class AccountActionsComponent {
     this.accountService.transfer(this.transferDto).subscribe(
       (response) => {
         this.notificationMessage = response.message;
-        this.notificationVisible = true; // Show notification modal
+        this.notificationVisible = true;
         this.account.balance -= this.transferDto.transferAmount;
         this.transferDto.targetAccountNumber = '';
         this.transferDto.transferAmount = 0;
@@ -124,7 +119,7 @@ export class AccountActionsComponent {
       },
       (error) => {
         this.notificationMessage = 'An error occurred while transferring.';
-        this.notificationVisible = true; // Show notification modal
+        this.notificationVisible = true;
         console.error(error);
       }
     );
