@@ -50,7 +50,7 @@ export class AccountActionsComponent {
       );
     } else {
       this.notificationMessage =
-        'Transaction cancelled! Deposit amount should be positive value.';
+        'Transaction cancelled! The deposit amount should be a positive value.';
       this.notificationVisible = true; // Show notification modal
     }
   }
@@ -74,7 +74,8 @@ export class AccountActionsComponent {
           this.accountUpdated.emit(); // Emit event to refresh account details
         },
         (error) => {
-          this.notificationMessage = 'An error occurred while withdrawing.';
+          this.notificationMessage =
+            'Transaction cancelled! Withdrawal amount should be positive value.';
           this.notificationVisible = true; // Show notification modal
           console.error(error);
         }
