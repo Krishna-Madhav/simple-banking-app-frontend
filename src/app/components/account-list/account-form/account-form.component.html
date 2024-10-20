@@ -32,6 +32,9 @@
         min="0"
         required
       />
+      @if (newAccount.balance<0) {
+      <span class="text-danger">Amount must be a positive value.</span>
+      }
     </div>
 
     <div class="d-flex justify-content-between">

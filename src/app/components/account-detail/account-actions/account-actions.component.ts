@@ -60,28 +60,35 @@ export class AccountActionsComponent {
 
   // Method to handle withdrawal operation
   withdraw() {
+    // Check if the withdrawal amount is greater than 0
     if (this.withdrawAmount <= 0) {
       this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
       this.notificationVisible = true;
-    } else if (this.withdrawAmount > this.account.balance) {
+      return; // Exit the method if the condition is met
+    }
+
+    // Check if the withdrawal amount exceeds the account balance
+    if (this.withdrawAmount > this.account.balance) {
       this.notificationMessage = AppConstants.MESSAGES.EXCEEDS_BALANCE_WITHDRAWAL;
       this.notificationVisible = true;
-    } else {
-      this.accountService.withdraw(this.account.accountNr, this.withdrawAmount).subscribe(
-        (response) => {
-          this.notificationMessage = response.message;
-          this.notificationVisible = true;
-          this.account.balance -= this.withdrawAmount;
-          this.withdrawAmount = 0;
-          this.accountUpdated.emit(); // Emit event to refresh account details
-        },
-        (error) => {
-          this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
-          this.notificationVisible = true;
-          console.error(error);
-        }
-      );
+      return; // Exit the method if the condition is met
     }
+
+    // Proceed with the withdrawal
+    this.accountService.withdraw(this.account.accountNr, this.withdrawAmount).subscribe(
+      (response) => {
+        this.notificationMessage = response.message;
+        this.notificationVisible = true;
+        this.account.balance -= this.withdrawAmount;
+        this.withdrawAmount = 0;
+        this.accountUpdated.emit(); // Emit event to refresh account details
+      },
+      (error) => {
+        this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
+        this.notificationVisible = true;
+        console.error(error);
+      }
+    );
   }
 
   // Method to open the transfer confirmation modal

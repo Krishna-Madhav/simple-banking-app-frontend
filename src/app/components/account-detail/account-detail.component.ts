@@ -63,13 +63,18 @@ export class AccountDetailComponent implements OnInit {
   loadAccountDetails(accountNr: string) {
     this.accountService.getAccountByNumber(accountNr).subscribe(
       (account) => {
-        this.account = { ...account, transactions: account.transactions || [] }; // Ensure transactions is an array
-        this.isLoadingAccountDetails = false; // Set loading to false for account details
-        this.loadTransactions(accountNr); // Load transactions once account details are available
+        if (!account) {
+          this.router.navigate(['/not-found']); // Redirect to 404 if account doesn't exist
+          return;
+        }
+        this.account = { ...account, transactions: account.transactions || [] };
+        this.isLoadingAccountDetails = false;
+        this.loadTransactions(accountNr);
       },
       (error) => {
         console.error('Error loading account details', error);
-        this.isLoadingAccountDetails = false; // Set loading to false on error
+        this.router.navigate(['/not-found']); // Redirect to 404 on error
+        this.isLoadingAccountDetails = false;
       }
     );
   }
