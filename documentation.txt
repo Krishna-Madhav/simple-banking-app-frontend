@@ -1,0 +1,39 @@
+# Read me file for Angular Banking Application Frontend
+
+## Overview
+
+This is an Angular application that serves as the frontend for a banking system. It communicates with the Spring Boot backend to provide a user interface for banking operations.
+
+## Requirements
+
+- Node.js 18 or later
+- Angular CLI 15 or later
+- npm 9 or later
+
+## Installation Instructions
+
+1. Install Node.js and npm
+
+To install Node.js and npm, you can follow these steps:
+
+- For Ubuntu/Debian:
+  sudo apt update
+  sudo apt install -y nodejs npm
+
+- For macOS using Homebrew:
+  brew install node
+
+- For Windows: Download the Node.js installer from the official Node.js website and run it. 
+This will install both Node.js and npm.
+
+2. Install Angular CLI
+   npm install -g @angular/cli
+
+3. Fetch the frontend codebase which I have shared via email
+
+4. In the root folder of the frontend component, execute  npm install. This will install all the dependencies related for the project.
+
+5. To run the application use this command 'ng serve' which allows you you to view the app on http://localhost:4200/
+
+Note on Frontend Deployment: Since I was unable to deploy the frontend app using Nginx in Docker, I'm sharing this file 
+so that one can execute it locally using above-mentioned steps.

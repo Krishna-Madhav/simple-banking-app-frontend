@@ -1,17 +1,34 @@
-# Dockerfile for Angular Frontend
-
-# Step 1: Use Node.js for building the Angular app
+# Use the official Node.js image
 FROM node:18 AS build
+
+# Set the working directory
 WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install
+
+# Install dependencies
+RUN npm ci
+
+RUN npm install -g @angular/cli
+
+# Copy the rest of the application code
 COPY . .
-RUN npm run build --prod
 
-# Step 2: Use an official Nginx image to serve the Angular app
-# (No need for Nginx as per your condition, so we'll use a basic HTTP server)
-FROM httpd:2.4
-COPY --from=build /app/dist/your-angular-app /usr/local/apache2/htdocs/
+# Build the Angular application
+RUN npm run build --configuration=production
 
-# Expose the port your frontend runs on (e.g., 80)
-EXPOSE 4200
+# Stage 2: Serve the application with a simple HTTP server
+FROM nginx:alpine
+
+# Copy the Nginx configuration file into the container
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy the built Angular application from the previous stage
+COPY --from=build /app/dist/banking-app/browser /usr/share/nginx/html
+
+# Expose the port that Nginx will listen on
+EXPOSE 80
+
+# Command to run Nginx
+#CMD ["nginx", "-g", "daemon off;"]
