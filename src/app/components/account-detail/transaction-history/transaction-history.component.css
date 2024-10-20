@@ -1,7 +1,7 @@
 .text-success {
-  color: green; /* Green for deposits */
+  color: green;
 }
 
 .text-danger {
-  color: red; /* Red for withdrawals and transfers */
+  color: red;
 }

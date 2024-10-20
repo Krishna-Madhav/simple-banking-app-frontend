@@ -1,8 +1,9 @@
 import { Transaction } from './transaction.model';
 
+// Interface representing a bank account
 export interface Account {
-  id?: number; // Mark id as optional
+  id?: number; // Here id optional
   accountNr: string;
   balance: number;
-  transactions?: Transaction[]; // Mark transactions as optional
+  transactions?: Transaction[]; // ? indicates Transactions as optional
 }

@@ -1,13 +1,19 @@
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Mini Bank</h2>
+    <h2 class="title">Mini Bank</h2>
     <button class="btn btn-primary" (click)="showCreateAccountForm = true">
       Create New Account
     </button>
   </div>
 
+  <h4 class="title mb-4 align-items-center">Account Cards</h4>
+
   <!-- Display the account creation form when the button is clicked -->
+
   <div class="mb-4" *ngIf="showCreateAccountForm">
+    <!-- Emit event when an account is created -->
+    <!-- Emit event when the form is cancelled -->
+
     <app-account-form
       (accountCreated)="onAccountCreated($event)"
       (formCancelled)="onFormCancelled()"
@@ -15,7 +21,36 @@
     </app-account-form>
   </div>
 
-  <!-- Account Cards -->
+  <!-- Loading Spinner displayed when data is being fetched -->
+  <div
+    *ngIf="isLoading"
+    class="d-flex justify-content-center align-items-center"
+    style="height: 100px"
+  >
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <!-- No Accounts Found Message -->
+  <div
+    *ngIf="!isLoading && accounts.length === 0"
+    class="no-accounts-message text-center"
+    style="margin-top: 20px"
+  >
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No Accounts Found</h4>
+      <p>
+        It seems that there are no accounts yet. You can create one by clicking the button
+        above.
+      </p>
+      <p>
+        If you believe this is an error, please check if your server is running or
+        refreshing.
+      </p>
+      <hr />
+    </div>
+  </div>
+
+  <!-- Account Cards Section -->
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let account of accounts">
       <app-account-card

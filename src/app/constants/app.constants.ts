@@ -1,4 +1,6 @@
+// Application-wide constants for managing API methods and messages
 export const AppConstants = {
+  // Constants for API method endpoints
   API_METHOD: {
     ACCOUNTS: 'accounts',
     DEPOSIT: 'deposit',
@@ -6,6 +8,7 @@ export const AppConstants = {
     TRANSACTIONS: 'transactions',
     TRANSFER: 'transfer',
   },
+  // Constants for user messages and alerts
   MESSAGES: {
     INVALID_DEPOSIT_AMOUNT:
       'Transaction cancelled! Deposit amount must be a positive value.',

@@ -1,9 +1,10 @@
+<!-- Card component to display individual account information -->
 <div class="card h-100" style="min-height: 200px">
   <div class="card-body d-flex flex-column align-items-center p-3">
-    <h5 class="card-title">Account {{ account.accountNr }}</h5>
-    <p class="card-text">Balance: {{ account.balance | currency }}</p>
+    <h5 class="card-title title">Account {{ account.accountNr }}</h5>
+    <p class="card-text">Balance: {{ account.balance | currency : "EUR" }}</p>
 
-    <!-- Buttons Section -->
+    <!-- Buttons for View and Delete -->
     <div class="mt-auto text-center w-100">
       <button class="btn btn-primary w-100 mb-2" (click)="viewAccountDetails()">
         View

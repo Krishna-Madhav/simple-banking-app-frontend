@@ -1,6 +1,10 @@
+<!-- Card to hold the transaction history -->
 <div class="card mb-4">
   <div class="card-body">
     <h3 class="card-title">Transaction History</h3>
+
+    <!-- Scrollable area for transaction history -->
+
     <div style="max-height: 500px; overflow-y: auto">
       <table class="table">
         <thead>
@@ -15,12 +19,13 @@
         </thead>
         <tbody>
           <!-- Looping through transactions using @for -->
+
           @for (transaction of safeTransactions; track $index) {
           <tr>
             <td>{{ $index + 1 }}</td>
             <td>{{ transaction.transactionType }}</td>
-            <td>{{ transaction.oldBalance | currency }}</td>
-            <td>{{ transaction.newBalance | currency }}</td>
+            <td>{{ transaction.oldBalance | currency : "EUR" }}</td>
+            <td>{{ transaction.newBalance | currency : "EUR" }}</td>
             <td
               [ngClass]="{
                 'text-success':
@@ -31,7 +36,8 @@
                   transaction.transactionType === 'TRANSFER'
               }"
             >
-              {{ transaction.transactionAmount | currency }}
+              <!-- Display transaction amount formatted as currency -->
+              {{ transaction.transactionAmount | currency : "EUR" }}
             </td>
 
             <td>{{ transaction.timeStamp }}</td>

@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./account-info.component.css'],
   imports: [CommonModule],
 })
+
+// Component for showing information about an account in account details page
 export class AccountInfoComponent {
   @Input() account!: Account; // Input property to receive account data
 }

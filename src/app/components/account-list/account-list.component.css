@@ -1,0 +1,32 @@
+.no-accounts-message {
+  margin-top: 20px;
+}
+
+.alert {
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #d1ecf1; 
+  color: #0c5460; /
+}
+
+.alert-heading {
+  margin-bottom: 15px;
+  color: #0c5460; 
+}
+
+.title {
+  font-family: Arial, sans-serif; 
+  font-weight: bold; 
+  color: #333;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+h2.title {
+  font-size: 2rem;
+}
+
+h4.title {
+  font-size: 1.75rem;
+}

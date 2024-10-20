@@ -1,21 +1,27 @@
 <div class="container mt-5">
+  <!-- Header section for the application title -->
+
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Mini Bank</h2>
+    <h2 class="title">Mini Bank</h2>
   </div>
 
+  <!-- Loading state: Display a spinner while account details are being loaded -->
   <div
     *ngIf="isLoadingAccountDetails"
     class="d-flex justify-content-center align-items-center"
     style="height: 100vh"
   >
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status"></div>
     </div>
   </div>
+
+  <!-- Account details section: Rendered when account data is available -->
 
   <div *ngIf="!isLoadingAccountDetails && account" class="account-detail">
     <app-account-info [account]="account"></app-account-info>
 
+    <!-- Component to manage account actions like deposits, withdrawals and transfers-->
     <app-account-actions
       [account]="account"
       [accounts]="accounts"
@@ -24,10 +30,12 @@
 
     <br />
 
+    <!-- Component to display transaction history -->
     <app-transaction-history
       [transactions]="account.transactions"
     ></app-transaction-history>
 
+    <!-- Navigation button to go back to the account list -->
     <div class="text-center mt-4">
       <button class="btn btn-secondary w-100" (click)="goToAccountList()">
         Back to Account List

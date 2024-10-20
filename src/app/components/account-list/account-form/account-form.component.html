@@ -1,8 +1,13 @@
 <div class="card p-3 mb-5">
   <h4>Create New Account</h4>
+
+  <!-- Form for creating a new account, bound to the createAccount method on submit -->
   <form (ngSubmit)="createAccount()">
     <div class="form-group mb-3">
+      <!-- Account Number Input Field -->
       <label for="accountNumber">Account Number:</label>
+
+      <!-- Two-way data binding with the account number -->
       <input
         type="text"
         id="accountNumber"
@@ -12,8 +17,12 @@
         required
       />
     </div>
+
     <div class="form-group mb-3">
+      <!-- Initial Balance Input Field -->
       <label for="initialBalance">Initial Balance:</label>
+
+      <!-- Two-way data binding with the initial balance -->
       <input
         type="number"
         id="initialBalance"
@@ -24,7 +33,9 @@
         required
       />
     </div>
+
     <div class="d-flex justify-content-between">
+      <!-- Buttons for form submission and cancellation -->
       <button type="submit" class="btn btn-success w-100">Create Account</button>
       <button type="button" class="btn btn-secondary w-100 ms-2" (click)="cancel()">
         Cancel

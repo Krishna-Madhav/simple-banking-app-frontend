@@ -1,3 +1,4 @@
+<!-- Displays information about an account -->
 <div class="card mb-4">
   <div class="card-body">
     <h4 class="card-title mb-4">Account Details</h4>
@@ -11,7 +12,7 @@
     <div>
       <p class="card-text mb-0">
         Account Balance:
-        <span class="balance-success">{{ account.balance | currency }}</span>
+        <span class="balance-success">{{ account.balance | currency : "EUR" }}</span>
       </p>
     </div>
   </div>

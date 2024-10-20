@@ -9,9 +9,11 @@ import { CommonModule } from '@angular/common';
   standalone: true, // Mark as standalone
   imports: [CommonModule], // Import required modules for this component
 })
+// Component for displaying all the transactions related to a particular account in a tabular format
 export class TransactionHistoryComponent {
-  @Input() transactions: Transaction[] | undefined; // Allow undefined
+  @Input() transactions: Transaction[] | undefined; // Input property for transaction data, can be undefined
 
+  // Getter to return an array of transactions
   get safeTransactions(): Transaction[] {
     return this.transactions || [];
   }

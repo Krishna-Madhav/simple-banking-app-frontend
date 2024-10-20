@@ -14,6 +14,8 @@ import { AppConstants } from '../../../constants/app.constants';
   templateUrl: './account-actions.component.html',
   styleUrls: ['./account-actions.component.css'],
 })
+
+// Component for handling the transactions for an account
 export class AccountActionsComponent {
   @Input() account!: Account;
   @Input() accounts: Account[] = [];
@@ -33,6 +35,7 @@ export class AccountActionsComponent {
 
   constructor(private accountService: AccountService) {}
 
+  // Method to handle deposit operation
   deposit() {
     if (this.depositAmount > 0) {
       this.accountService.deposit(this.account.accountNr, this.depositAmount).subscribe(
@@ -55,6 +58,7 @@ export class AccountActionsComponent {
     }
   }
 
+  // Method to handle withdrawal operation
   withdraw() {
     if (this.withdrawAmount <= 0) {
       this.notificationMessage = AppConstants.MESSAGES.INVALID_WITHDRAWAL_AMOUNT;
@@ -80,6 +84,7 @@ export class AccountActionsComponent {
     }
   }
 
+  // Method to open the transfer confirmation modal
   openTransferModal() {
     // Check if the transfer amount and target account are valid
     if (this.transferDto.transferAmount <= 0 && !this.transferDto.targetAccountNumber) {
@@ -103,6 +108,7 @@ export class AccountActionsComponent {
     this.showModal = true; // Show transfer confirmation modal
   }
 
+  // Method to execute the transfer operation
   transfer() {
     // Set the source account number before making the transfer
     this.transferDto.sourceAccountNumber = this.account.accountNr;
@@ -125,11 +131,12 @@ export class AccountActionsComponent {
     );
   }
 
+  // Method to close the confirmation modal
   closeModal() {
-    this.showModal = false; // Close confirmation modal
+    this.showModal = false;
   }
-
+  // Method to close the notification modal
   closeNotification() {
-    this.notificationVisible = false; // Close notification modal
+    this.notificationVisible = false;
   }
 }

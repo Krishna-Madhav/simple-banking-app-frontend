@@ -1,3 +1,5 @@
+// Interface representing a transaction activity
+
 export interface Transaction {
   id: number;
   transactionType: string;
@@ -5,5 +7,5 @@ export interface Transaction {
   transactionAmount: number;
   oldBalance: number;
   newBalance: number;
-  targetAccountNr?: string;
+  targetAccountNr?: string; // Optional target account number for transfers; not required for deposits/withdrawals
 }

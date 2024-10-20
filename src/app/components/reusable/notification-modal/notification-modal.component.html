@@ -1,3 +1,4 @@
+<!-- Conditional rendering of the modal based on the isVisible property -->
 <div
   *ngIf="isVisible"
   class="modal fade show"
@@ -10,6 +11,8 @@
     <div class="modal-content text-center">
       <div class="modal-header justify-content-center">
         <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+
+        <!-- onClose method to emit close event -->
         <button
           type="button"
           class="btn-close"
@@ -20,6 +23,7 @@
       <div
         class="modal-body d-flex flex-column align-items-center justify-content-center"
       >
+        <!-- Display the notification message passed as input -->
         <p>{{ message }}</p>
       </div>
       <div class="modal-footer justify-content-center">

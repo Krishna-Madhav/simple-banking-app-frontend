@@ -22,11 +22,19 @@ import { AccountActionsComponent } from './account-actions/account-actions.compo
   templateUrl: './account-detail.component.html',
   styleUrls: ['./account-detail.component.css'],
 })
+
+/**
+ * The AccountDetailComponent manages the display and actions related to a specific bank account.
+ * It retrieves account details and transaction history based on the account number from the route parameters.
+ * Additionally, it allows the user to perform account actions such as deposits, withdrawals, and transfers
+ * and displays a list of other accounts for potential transfers. It also displays all the transaction for the account.
+ */
 export class AccountDetailComponent implements OnInit {
-  account!: Account;
+  account!: Account; // Holds the details of the current account
   depositAmount!: number;
   withdrawAmount!: number;
   transferDto: TransferDto = {
+    // Data transfer object for transfers
     sourceAccountNumber: '',
     targetAccountNumber: '',
     transferAmount: 0,
@@ -41,12 +49,16 @@ export class AccountDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Subscribe to route parameters to get the account number
     this.route.params.subscribe((params) => {
+      // Extract account number from URL
       const accountNr = params['id'];
       this.loadAccountDetails(accountNr);
       this.loadAllAccounts(); // Load accounts for transfer on component initialization
     });
   }
+
+  // Fetch account details using the account number
 
   loadAccountDetails(accountNr: string) {
     this.accountService.getAccountByNumber(accountNr).subscribe(
@@ -62,6 +74,8 @@ export class AccountDetailComponent implements OnInit {
     );
   }
 
+  // Fetch transactions associated with the account
+
   loadTransactions(accountNr: string) {
     this.accountService.getTransactionsByAccountNumber(accountNr).subscribe(
       (transactions) => {
@@ -73,6 +87,7 @@ export class AccountDetailComponent implements OnInit {
     );
   }
 
+  // Load all accounts to be available for transfer operations except the curent account
   loadAllAccounts() {
     this.accountService.getAccounts().subscribe(
       (accounts) => {
@@ -86,12 +101,12 @@ export class AccountDetailComponent implements OnInit {
     );
   }
 
-  // This method refreshes account details, including transactions, after any action
+  // This method refreshes account details like transactions after any action is performed
   refreshAccountDetails() {
     this.loadAccountDetails(this.account.accountNr);
   }
 
   goToAccountList() {
-    this.router.navigate(['/accounts']);
+    this.router.navigate(['/accounts']); // Navigate back to the accounts list
   }
 }

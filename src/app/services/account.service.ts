@@ -7,11 +7,26 @@ import { Transaction } from '../models/transaction.model';
 import { environment } from '../../environments/environment';
 import { AppConstants } from '../constants/app.constants';
 
+// This service is provided at the root level
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * AccountService handles all operations related to bank accounts.
+ * It has methods to:
+ * - Fetch all accounts
+ * - Fetch a specific account by its number
+ * - Create a new account
+ * - Deposit or withdraw funds from an account
+ * - Transfer money between accounts
+ * - Fetch transaction history for an account
+ * - Delete an account
+ *
+ * This service uses Angular's HttpClient to make HTTP requests to the backend API.
+ */
 export class AccountService {
-  private apiURL = environment.apiURL;
+  private apiURL = environment.apiURL; // Base API URL from environment configuration
 
   constructor(private http: HttpClient) {}
 

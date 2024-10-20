@@ -16,7 +16,8 @@ import { AccountFormComponent } from './account-form/account-form.component';
 })
 export class AccountListComponent implements OnInit {
   accounts: Account[] = [];
-  showCreateAccountForm: boolean = false; // Control visibility of the form
+  showCreateAccountForm: boolean = false;
+  isLoading: boolean = true;
 
   constructor(private accountService: AccountService, private router: Router) {}
 
@@ -25,16 +26,24 @@ export class AccountListComponent implements OnInit {
   }
 
   loadAccounts() {
-    this.accountService.getAccounts().subscribe((accounts) => {
-      this.accounts = accounts;
-    });
+    this.isLoading = true;
+    this.accountService.getAccounts().subscribe(
+      (accounts) => {
+        this.accounts = accounts;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching accounts', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   onAccountCreated(account: Account) {
     this.accountService.createAccount(account).subscribe(() => {
       alert(`Account ${account.accountNr} created successfully!`);
-      this.loadAccounts(); // Reload the account list after creation
-      this.showCreateAccountForm = false; // Hide form after creation
+      this.loadAccounts();
+      this.showCreateAccountForm = false;
     });
   }
 
